@@ -244,28 +244,26 @@ fu! s:preview(bang)
         aug instant-rst
             sil! au! 
             if g:instant_rst_slow
-                au CursorHold,BufWrite,InsertLeave <buffer>,*.rst call s:temperedRefresh()
+                au BufWrite <buffer>,*.rst call s:temperedRefresh()
             else
                 au CursorHold,CursorHoldI,CursorMoved,CursorMovedI <buffer>,*.rst call s:temperedRefresh()
             endif
             if g:instant_rst_bind_scroll
                 au CursorHold,CursorHoldI,CursorMoved,CursorMovedI <buffer>,*.rst call s:scroll()
             endif
-            au BufWinEnter,WinEnter <buffer>,*.rst call s:refreshView()
             au VimLeave * call s:cleanUp('!')
         aug END
     else
         aug instant-rst
             sil! au! <buffer>
             if g:instant_rst_slow
-                au CursorHold,BufWrite,InsertLeave <buffer> call s:temperedRefresh()
+                au BufWrite <buffer> call s:temperedRefresh()
             else
                 au CursorHold,CursorHoldI,CursorMoved,CursorMovedI <buffer> call s:temperedRefresh()
             endif
             if g:instant_rst_bind_scroll
                 au CursorHold,CursorHoldI,CursorMoved,CursorMovedI <buffer> call s:scroll()
             endif
-            au BufWinEnter,WinEnter <buffer> call s:refreshView()
             au BufWinLeave <buffer> call s:cleanUp()
         aug END
     endif
